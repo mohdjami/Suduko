@@ -67,6 +67,7 @@ const MyForm = () => {
   const [display, setDisplay] = useState(false);
   const [flag, setFlag] = useState(true);
   const [error, setError] = useState("");
+  const [err, showErr] = useState(false);
   const [values, setValues] = useState({
     e00: 1,
     e01: 0,
@@ -81,6 +82,7 @@ const MyForm = () => {
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     setDisplay(false);
+    showErr(false);
     const { name, value } = e.target;
     const numericValue = Number(value);
     console.log(numericValue);
@@ -110,7 +112,8 @@ const MyForm = () => {
       console.log(matrix);
       // let flag = true;
       console.log(checkMatrix(matrix));
-      setFlag(checkMatrix(matrix)); // Should log true for this example    // for (let i = 0; i < 3; i++) {
+      setFlag(checkMatrix(matrix)); // Should log true for this example    \
+      // for (let i = 0; i < 3; i++) {
       //   for (let j = 0; j < 3; j++) {
       //     let k = 0;
       //     while (k < 2) {
@@ -130,7 +133,9 @@ const MyForm = () => {
       // }
       // console.log(flag);
     } catch (error) {
+      showErr(true);
       if (error instanceof ZodError) {
+        setDisplay(false);
         setError(error.errors[0].message);
       }
     }
@@ -151,13 +156,11 @@ const MyForm = () => {
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e00}
                 onChange={handleChange}
-                type="number"
               />{" "}
               <input
                 name="e01"
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e01}
-                type="number"
                 onChange={handleChange}
               />
               <input
@@ -165,49 +168,42 @@ const MyForm = () => {
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e02}
                 onChange={handleChange}
-                type="number"
               />
               <input
                 name="e10"
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e10}
                 onChange={handleChange}
-                type="number"
               />
               <input
                 name="e11"
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e11}
                 onChange={handleChange}
-                type="number"
               />
               <input
                 name="e12"
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e12}
                 onChange={handleChange}
-                type="number"
               />
               <input
                 name="e20"
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e20}
                 onChange={handleChange}
-                type="number"
               />
               <input
                 name="e21"
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e21}
                 onChange={handleChange}
-                type="number"
               />
               <input
                 name="e22"
                 className="border-2 flex items-center justify-center text-center"
                 value={values.e22}
                 onChange={handleChange}
-                type="number"
               />
             </div>
             {/* Add other input fields similarly */}
@@ -223,14 +219,14 @@ const MyForm = () => {
             <></>
           )}
         </Card>
-        {error ? (
+        {err && error ? (
           <Label className="text-red-500 m-4 p-4">{error}</Label>
         ) : (
           <></>
         )}
-        <Card className="p-4 flex flex-grow gap-2 mt-10">
+        <Card className="p-4 flex flex-grow flex-col gap-2 mt-10">
           <CardTitle>Rules!!</CardTitle>
-          <CardFooter>
+          <CardFooter className="flex">
             <ul>
               <li>Each row must contain all numbers from 1-3</li>
               <li>Each column must contain all numbers from 1-3</li>
