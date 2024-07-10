@@ -109,7 +109,7 @@ const MyForm = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex flex flex-col">
         <div className="text-xl"> Play a 3x3 Suduko </div>
         <Card className="p-5 flex items-center justify-center">
           {" "}
