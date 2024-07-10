@@ -27,6 +27,28 @@ const formSchema = z.object({
   e21: z.number(),
   e22: z.number(),
 });
+function checkMatrix(matrix: unknown[][]) {
+  // Check rows for duplicates
+  for (let i = 0; i < 3; i++) {
+    let rowSet = new Set();
+    for (let j = 0; j < 3; j++) {
+      if (rowSet.has(matrix[i][j])) return false;
+      rowSet.add(matrix[i][j]);
+    }
+  }
+
+  // Check columns for duplicates
+  for (let j = 0; j < 3; j++) {
+    let colSet = new Set();
+    for (let i = 0; i < 3; i++) {
+      if (colSet.has(matrix[i][j])) return false;
+      colSet.add(matrix[i][j]);
+    }
+  }
+
+  // If no duplicates found, matrix is valid
+  return true;
+}
 export default function Home() {
   const [values, setValues] = useState({
     e00: 1,

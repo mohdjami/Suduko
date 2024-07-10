@@ -14,7 +14,7 @@ const formSchema = z.object({
   e21: z.number(),
   e22: z.number(),
 });
-export function checkMatrix(matrix: unknown[][]) {
+function checkMatrix(matrix: unknown[][]) {
   // Check rows for duplicates
   for (let i = 0; i < 3; i++) {
     let rowSet = new Set();
